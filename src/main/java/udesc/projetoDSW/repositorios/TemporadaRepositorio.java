@@ -5,8 +5,10 @@
  */
 package udesc.projetoDSW.repositorios;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,17 +28,20 @@ import udesc.projetoDSW.model.Temporada;
 public class TemporadaRepositorio {    
     @Autowired
     private TemporadaControlador temporadas;
-    
-    @GetMapping("/{id}")
+  
+      @GetMapping("/{id}")
     public Temporada buscarId(@PathVariable Long id){
         return temporadas.getOne(id);
     }
-    
+    @JsonIgnore
+    @CrossOrigin(origins="*",allowedHeaders = "*")
     @GetMapping
     public List<Temporada> findAll(){
+        System.out.println("get");
         return temporadas.findAll();
     }
     
+    @CrossOrigin(origins="*",allowedHeaders = "*")
     @PostMapping
     public Temporada salvar(@RequestBody Temporada temporada){
         System.out.println("ENtrou");

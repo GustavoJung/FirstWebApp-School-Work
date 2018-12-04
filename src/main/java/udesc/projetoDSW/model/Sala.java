@@ -10,35 +10,39 @@ package udesc.projetoDSW.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.CascadeType;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author gustavo
  */
 @Entity
-public class Temporada implements Serializable {
+public class Sala implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
-    private String Descricao;
     
-    @OneToMany(mappedBy = "temporada", cascade = CascadeType.ALL)
-    private Set<Competicao> Competicaos;
+    @ManyToOne
+    @JoinColumn(name = "Categoria_id")
+    private Categoria categoria;
     
-    @OneToMany(mappedBy = "temporada", cascade = CascadeType.ALL)
-    private Set<Rodada> Rodadas;
-
+    @ManyToOne
+    @JoinColumn(name = "Competicao_id")
+    private Competicao competicao;
+    
+    @OneToMany(mappedBy = "sala", cascade = CascadeType.ALL)
+    private Set<RodadaEquipe> RodadaEquipes;
+    
     public Long getId() {
         return id;
     }
@@ -46,7 +50,7 @@ public class Temporada implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public String getNome() {
         return nome;
     }
@@ -55,29 +59,28 @@ public class Temporada implements Serializable {
         this.nome = nome;
     }
     
-    public String getDescricao() {
-        return Descricao;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setDescricao(String Descricao) {
-        this.Descricao = Descricao;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
     
-    public Set<Competicao> getCompeticao() {
-        return Competicaos;
+    public Competicao getCompeticao() {
+        return competicao;
     }
 
-    public void setCompeticao(Set<Competicao> Competicaos) {
-        this.Competicaos = Competicaos;
+    public void setCompeticao(Competicao competicao) {
+        this.competicao = competicao;
     }
     
-    public Set<Rodada> getRodadas() {
-        return Rodadas;
+    public Set<RodadaEquipe> getRodadaEquipes() {
+        return RodadaEquipes;
     }
 
-    public void setRodadas(Set<Rodada> Rodadas) {
-        this.Rodadas = Rodadas;
+    public void setRodadaEquipes(Set<RodadaEquipe> RodadaEquipes) {
+        this.RodadaEquipes = RodadaEquipes;
     }
 
-    
 }

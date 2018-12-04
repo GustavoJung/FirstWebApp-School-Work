@@ -15,39 +15,38 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import udesc.projetoDSW.controlador.CategoriaControlador;
-import udesc.projetoDSW.model.Categoria;
+import udesc.projetoDSW.controlador.EquipeControlador;
+import udesc.projetoDSW.model.Equipe;
 
 /**
  *
- * @author 08205268940
+ * @author mrcar
  */
-
 @RestController
-@RequestMapping("/categorias")
-public class CategoriaRepositorio {
-    
+@RequestMapping("/equipes")
+public class EquipeRepositorio {    
     @Autowired
-    private CategoriaControlador categorias;
+    private EquipeControlador equipes;
     
     @GetMapping("/{id}")
-    public Categoria buscarId(@PathVariable Long id){
-        return categorias.getOne(id);
+    public Equipe buscarId(@PathVariable Long id){
+        return equipes.getOne(id);
     }
     
+@CrossOrigin(origins="*",allowedHeaders = "*")    
     @GetMapping
-    public List<Categoria> findAll(){
-        return categorias.findAll();
+    public List<Equipe> findAll(){
+        return equipes.findAll();
     }
+    
     @CrossOrigin(origins="*",allowedHeaders = "*")
     @PostMapping
-    public Categoria salvar(@RequestBody Categoria categoria){
-        System.out.println("Entrou Categoria");
-        return categorias.save(categoria);
+    public Equipe salvar(@RequestBody Equipe equipe){
+        System.out.println("ENtrou");
+        return equipes.save(equipe);
     }
     
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
-        categorias.delete(categorias.getOne(id));
-    }
-}
+        equipes.delete(equipes.getOne(id));
+    }}

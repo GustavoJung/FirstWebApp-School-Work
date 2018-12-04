@@ -6,12 +6,12 @@
 package udesc.projetoDSW.controlador;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import udesc.projetoDSW.model.SalaAvaliacao;
+import udesc.projetoDSW.model.Sala;
 
 /**
  *
  * @author 08205268940
  */
-public interface SalaAvaliacaoControlador extends JpaRepository<SalaAvaliacao, Long>{
+public interface SalaAvaliacaoControlador extends JpaRepository<Sala, Long>{
     
 }

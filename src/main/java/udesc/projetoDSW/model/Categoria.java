@@ -1,39 +1,56 @@
+package udesc.projetoDSW.model;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package udesc.projetoDSW.model;
+
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
- * @author 08205268940
+ * @author gustavo
  */
 @Entity
 public class Categoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_categoria;
-
+    private Long id;
     private String nome;
     private String descricao;
-
-    @OneToMany(mappedBy="id_juiz")
-    private List<Juiz> juizes;
     
-    @OneToMany(mappedBy="id_missoes")
-    private List<Missoes>missoes;
+    //vincula o juíz com a categoria
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    private Set<Juiz> Juizes;
+    //vincula a missão a categoria
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    private Set<Missoes> missoes;
+    //vincula a sala com a categoria
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    private Set<Sala> Salas;
 
+   
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public String getNome() {
         return nome;
     }
@@ -41,7 +58,7 @@ public class Categoria implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+    
     public String getDescricao() {
         return descricao;
     }
@@ -49,55 +66,29 @@ public class Categoria implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-    public List<Juiz> getJuizes() {
-        return juizes;
+    
+    public Set<Juiz> getJuiz() {
+        return Juizes;
     }
 
-    public void setJuizes(List<Juiz> juizes) {
-        this.juizes = juizes;
+    public void setJuiz(Set<Juiz> Juizes) {
+        this.Juizes = Juizes;
     }
-
-    public List<Missoes> getMissoes() {
+    
+    public Set<Missoes> getMissoes() {
         return missoes;
     }
 
-    public void setMissoes(List<Missoes> missoes) {
+    public void setMissoes(Set<Missoes> missoes) {
         this.missoes = missoes;
     }
     
-    
-    public Long getId_categoria() {
-        return id_categoria;
+    public Set<Sala> getSala() {
+        return Salas;
     }
 
-    public void setId_categoria(Long id_categoria) {
-        this.id_categoria = id_categoria;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id_categoria != null ? id_categoria.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id_categoria fields are not set
-        if (!(object instanceof Categoria)) {
-            return false;
-        }
-        Categoria other = (Categoria) object;
-        if ((this.id_categoria == null && other.id_categoria != null) || (this.id_categoria != null && !this.id_categoria.equals(other.id_categoria))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "udesc.projetoDSW.model.Categoria[ id=" + id_categoria + " ]";
+    public void setSala(Set<Sala> Salas) {
+        this.Salas = Salas;
     }
     
 }

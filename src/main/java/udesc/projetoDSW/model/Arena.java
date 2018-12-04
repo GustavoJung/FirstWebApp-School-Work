@@ -1,33 +1,53 @@
+package udesc.projetoDSW.model;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package udesc.projetoDSW.model;
+
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
  *
- * @author 08205268940
+ * @author gustavo
  */
 @Entity
 public class Arena implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
+  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_arena;
-
+    private Long id;
     private String nome;
     
+    //vincula competicao com arena
     @ManyToOne
-    private Competicao id_competicao;
+    @JoinColumn(name = "Competicao_id")
+    private Competicao competicao;
+    
+    //vincula a rodada de determinada equipe com a Arena
+    @OneToMany(mappedBy = "arena", cascade = CascadeType.ALL)
+    private Set<RodadaEquipe> RodadaEquipes;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -36,48 +56,21 @@ public class Arena implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public Competicao getId_competicao() {
-        return id_competicao;
+    
+    public Competicao getCompeticao() {
+        return competicao;
     }
-
-    public void setId_competicao(Competicao id_competicao) {
-        this.id_competicao = id_competicao;
+   
+    public void setCompeticao(Competicao competicao) {
+        this.competicao = competicao;
     }
     
-    
-    
-    public Long getId_arena() {
-        return id_arena;
+    public Set<RodadaEquipe> getRodadaEquipes() {
+        return RodadaEquipes;
     }
 
-    public void setId_arena(Long id_arena) {
-        this.id_arena = id_arena;
+    public void setRodadaEquipes(Set<RodadaEquipe> RodadaEquipes) {
+        this.RodadaEquipes = RodadaEquipes;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id_arena != null ? id_arena.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id_arena fields are not set
-        if (!(object instanceof Arena)) {
-            return false;
-        }
-        Arena other = (Arena) object;
-        if ((this.id_arena == null && other.id_arena != null) || (this.id_arena != null && !this.id_arena.equals(other.id_arena))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "udesc.projetoDSW.model.Arena[ id=" + id_arena + " ]";
-    }
-    
+   
 }

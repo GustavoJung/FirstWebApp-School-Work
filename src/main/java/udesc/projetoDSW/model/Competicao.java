@@ -1,46 +1,64 @@
+package udesc.projetoDSW.model;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package udesc.projetoDSW.model;
+
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  *
- * @author 08205268940
+ * @author gustavo
  */
 @Entity
 public class Competicao implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_competicao;
-
+    private Long id;
     private String cidade;
     private String estado;
     private Date data;
-    private String responsavel;
-    private String tipo;//Nacional or Regional
-   
-    @OneToMany(mappedBy="id_arena", targetEntity = Arena.class)
-    private List<Arena> arenas;
-    
-    @OneToMany(mappedBy="id_salaAvaliacao")
-    private List<SalaAvaliacao> salas_avalicao;
-    
+    private String Responsavel;
+    private String tipo;
+    //vincula a temporada com a competicao
     @ManyToOne
-    private Temporada temporada_p;
+    @JoinColumn(name = "Temporada_id")
+    private Temporada temporada;
+    //vincula a arena com a competição
+    @OneToMany(mappedBy = "competicao", cascade = CascadeType.ALL)
+    private Set<Arena> Arenas;
+    //vincula a equipe com a competição
+    @OneToMany(mappedBy = "competicao", cascade = CascadeType.ALL)
+    private Set<Equipe> Equipes;
+    //vincula a sala com a competição
+    @OneToMany(mappedBy = "competicao", cascade = CascadeType.ALL)
+    private Set<Sala> Salas;
+    //vincula as rodadas com a competição
+    @OneToMany(mappedBy = "competicao", cascade = CascadeType.ALL)
+    private Set<Rodada> Rodadas;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCidade() {
         return cidade;
@@ -67,11 +85,11 @@ public class Competicao implements Serializable {
     }
 
     public String getResponsavel() {
-        return responsavel;
+        return Responsavel;
     }
 
-    public void setResponsavel(String responsavel) {
-        this.responsavel = responsavel;
+    public void setResponsavel(String Responsavel) {
+        this.Responsavel = Responsavel;
     }
 
     public String getTipo() {
@@ -81,56 +99,63 @@ public class Competicao implements Serializable {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
-    public List<Arena> getArenas() {
-        return arenas;
+    public Temporada getTemporada() {
+        return temporada;
     }
 
-    public void setArenas(List<Arena> arenas) {
-        this.arenas = arenas;
+    public void setTemporada(Temporada temporada) {
+        this.temporada = temporada;
+    }
+    
+    public Set<Arena> getArenas() {
+        return Arenas;
     }
 
-    public List<SalaAvaliacao> getSalas_avalicao() {
-        return salas_avalicao;
+    public void setArenas(Set<Arena> Arenas) {
+        this.Arenas = Arenas;
+    }
+    
+    public Set<Equipe> getEquipes() {
+        return Equipes;
     }
 
-    public void setSalas_avalicao(List<SalaAvaliacao> salas_avalicao) {
-        this.salas_avalicao = salas_avalicao;
+    public void setEquipes(Set<Equipe> Equipes) {
+        this.Equipes = Equipes;
+    }
+    
+    public Set<Sala> getSalas() {
+        return Salas;
     }
 
-    public Temporada getTemporada_p() {
-        return temporada_p;
+    public void setSalas(Set<Sala> Salas) {
+        this.Salas = Salas;
     }
-
-    public void setTemporada_p(Temporada temporada_p) {
-        this.temporada_p = temporada_p;
-    }
-
     
     
-    public Long getId_competicao() {
-        return id_competicao;
+    public Set<Rodada> getRodadas() {
+        return Rodadas;
     }
 
-    public void setId_competicao(Long id_competicao) {
-        this.id_competicao = id_competicao;
+    public void setRodadas(Set<Rodada> Rodadas) {
+        this.Rodadas = Rodadas;
     }
+    
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id_competicao != null ? id_competicao.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id_competicao fields are not set
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Competicao)) {
             return false;
         }
         Competicao other = (Competicao) object;
-        if ((this.id_competicao == null && other.id_competicao != null) || (this.id_competicao != null && !this.id_competicao.equals(other.id_competicao))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -138,7 +163,7 @@ public class Competicao implements Serializable {
 
     @Override
     public String toString() {
-        return "udesc.projetoDSW.model.Competicao[ id=" + id_competicao + " ]";
+        return "com.CompeticaoRobotica.CompeticaoRobotica.models.Competicao[ id=" + id + " ]";
     }
     
 }

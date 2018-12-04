@@ -9,6 +9,7 @@ package udesc.projetoDSW.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,18 +23,23 @@ import javax.persistence.ManyToOne;
  * @author gustavo
  */
 @Entity
-public class Alternativa implements Serializable {
+public class Rodada implements Serializable {
 
     private static final long serialVersionUID = 1L;
+  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private double valor;
+    private int idem;
+    private int nota;
     
-    //vincula alternativa com a missão
     @ManyToOne
-    @JoinColumn(name = "Missoes_id")
-    private Missoes missoes;
+    @JoinColumn(name = "Competicao_id")
+    private Competicao competicao;
+    
+    @ManyToOne
+    @JoinColumn(name = "Temporada_id")
+    private Temporada temporada;
 
     public Long getId() {
         return id;
@@ -42,21 +48,38 @@ public class Alternativa implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    
 
-    public double getValor() {
-        return valor;
+    public int getIdem() {
+        return idem;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setIdem(int idem) {
+        this.idem = idem;
+    }
+
+    public int getNota() {
+        return nota;
+    }
+
+    public void setNota(int nota) {
+        this.nota = nota;
     }
     
-    
-    public Missoes getMissoes() {
-        return missoes;
+    public Competicao getCompeticao() {
+        return competicao;
     }
 
-    public void setMissoes(Missoes missoes) {
-        this.missoes = missoes;
+    public void setCompeticao(Competicao competicao) {
+        this.competicao = competicao;
     }
+
+    public Temporada getTemporada() {
+        return temporada;
+    }
+
+    public void setTemporada(Temporada temporada) {
+        this.temporada = temporada;
+    }
+
 }

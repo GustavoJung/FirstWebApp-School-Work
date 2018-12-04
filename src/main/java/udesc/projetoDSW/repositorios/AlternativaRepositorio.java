@@ -7,6 +7,7 @@ package udesc.projetoDSW.repositorios;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,10 +38,10 @@ public class AlternativaRepositorio {
     public List<Alternativa> findAll(){
         return alternativas.findAll();
     }
-    
+    @CrossOrigin(origins="*",allowedHeaders = "*")
     @PostMapping
     public Alternativa salvar(@RequestBody Alternativa alternativa){
-        System.out.println("ENtrou");
+        System.out.println("Entrou alterntivas");
         return alternativas.save(alternativa);
     }
     

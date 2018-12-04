@@ -1,39 +1,53 @@
+package udesc.projetoDSW.model;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package udesc.projetoDSW.model;
+
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
  *
- * @author 08205268940
+ * @author gustavo
  */
 @Entity
 public class Integrante implements Serializable {
 
     private static final long serialVersionUID = 1L;
+  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_integrante;
+    private Long id;
     private String nome;
-    private String rg;
-    private String cpf;
-    private Date data_nascimento;
-    private String nome_pai;//opcional
-    private String nome_mae;//obrigatório
-    private boolean autorizacao_entregue;
+    private int rg;
+    private int cpf;
+    private Date nascimento;
+    private String pai;
+    private String mae;
+    private boolean autorizacao;
 
     @ManyToOne
-    private Equipe id_equipe;
+    @JoinColumn(name = "Equipe_id")
+    private Equipe equipe;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -42,95 +56,60 @@ public class Integrante implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public String getRg() {
+     public int getRg() {
         return rg;
     }
 
-    public void setRg(String rg) {
+    public void setRg(int rg) {
         this.rg = rg;
     }
 
-    public String getCpf() {
+    public int getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(int cpf) {
         this.cpf = cpf;
     }
 
-    public Date getData_nascimento() {
-        return data_nascimento;
+    public Date getNascimento() {
+        return nascimento;
     }
 
-    public void setData_nascimento(Date data_nascimento) {
-        this.data_nascimento = data_nascimento;
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
     }
 
-    public String getNome_pai() {
-        return nome_pai;
+    public String getPai() {
+        return pai;
     }
 
-    public void setNome_pai(String nome_pai) {
-        this.nome_pai = nome_pai;
+    public void setPai(String pai) {
+        this.pai = pai;
     }
 
-    public String getNome_mae() {
-        return nome_mae;
+    public String getMae() {
+        return mae;
     }
 
-    public void setNome_mae(String nome_mae) {
-        this.nome_mae = nome_mae;
+    public void setMae(String mae) {
+        this.mae = mae;
     }
 
-    public boolean isAutorizacao_entregue() {
-        return autorizacao_entregue;
+    public boolean isAutorizacao() {
+        return autorizacao;
     }
 
-    public void setAutorizacao_entregue(boolean autorizacao_entregue) {
-        this.autorizacao_entregue = autorizacao_entregue;
-    }
-
-    public Equipe getId_equipe() {
-        return id_equipe;
-    }
-
-    public void setId_equipe(Equipe id_equipe) {
-        this.id_equipe = id_equipe;
-    }
-
-    
-    public Long getId_integrante() {
-        return id_integrante;
-    }
-
-    public void setId_integrante(Long id_integrante) {
-        this.id_integrante = id_integrante;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id_integrante != null ? id_integrante.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id_integrante fields are not set
-        if (!(object instanceof Integrante)) {
-            return false;
-        }
-        Integrante other = (Integrante) object;
-        if ((this.id_integrante == null && other.id_integrante != null) || (this.id_integrante != null && !this.id_integrante.equals(other.id_integrante))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "udesc.projetoDSW.model.Integrante[ id=" + id_integrante + " ]";
+    public void setAutorizacao(boolean autorizacao) {
+        this.autorizacao = autorizacao;
     }
     
+    public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
+   
 }

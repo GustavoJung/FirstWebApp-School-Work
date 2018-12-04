@@ -5,8 +5,10 @@
  */
 package udesc.projetoDSW.repositorios;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,10 +39,10 @@ public class IntegranteRepositorio{
     public List<Integrante> findAll(){
         return controler.findAll();
     }
-    
+    @CrossOrigin(origins="*",allowedHeaders = "*")
     @PostMapping
     public Integrante salvar(@RequestBody Integrante integrante){
-        System.out.println("ENtrou");
+        System.out.println("ENtrou integrante");
         return controler.save(integrante);
     }
     
