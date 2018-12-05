@@ -6,8 +6,10 @@
 package udesc.projetoDSW.repositorios;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.awt.PageAttributes;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import udesc.projetoDSW.controlador.CompeticaoControlador;
 import udesc.projetoDSW.model.Competicao;
@@ -23,6 +26,7 @@ import udesc.projetoDSW.model.Competicao;
  *
  * @author 08205268940
  */
+@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/competicoes")
 public class CompeticaoRepositorio {
@@ -35,9 +39,7 @@ public class CompeticaoRepositorio {
         return competicoes.getOne(id);
     }
     
-    @JsonIgnore
-    @CrossOrigin(origins="*",allowedHeaders = "*")
-    @GetMapping
+    @RequestMapping(value="/all", method= RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Competicao> findAll(){
         return competicoes.findAll();
     }
